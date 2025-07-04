@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct ShopDealsDetailView: View {
     let shopDealsModel: ShopDealsModel
@@ -13,22 +14,23 @@ struct ShopDealsDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                AsyncImage(url: URL(string: shopDealsModel.backgroundImage)) { image in
+                WebImage(
+                    url: URL(string: shopDealsModel.backgroundImage),
+                    options: [.retryFailed, .continueInBackground]
+                ) { image in
                     image
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 320)
-                        .frame(maxWidth: .infinity)
                         .clipped()
-                        .cornerRadius(18)
                 } placeholder: {
                     Color(.systemGray5)
-                        .frame(height: 320)
-                        .frame(maxWidth: .infinity)
-                        .cornerRadius(18)
+                        .overlay(ProgressView())
                 }
+                .frame(height: 320)
+                .frame(maxWidth: .infinity)
+                .cornerRadius(18)
                 .padding(.top, 16)
-
+                
                 Text(shopDealsModel.title)
                     .font(.system(size: 32, weight: .bold))
                     .foregroundColor(.black)
@@ -71,10 +73,10 @@ struct ShopDealsDetailView: View {
                     let validHTML = bottomDesc
                         .replacingOccurrences(of: "\\\"", with: "\"")
                         .replacingOccurrences(of: "\\\\", with: "")
-                        HTMLTextView(html: validHTML)
-                            .font(.footnote)
-                            .padding(.top, 12)
-                    }
+                    HTMLTextView(html: validHTML)
+                        .font(.footnote)
+                        .padding(.top, 12)
+                }
                 
                 Spacer()
             }

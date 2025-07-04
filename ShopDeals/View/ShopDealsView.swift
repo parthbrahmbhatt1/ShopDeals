@@ -6,22 +6,27 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct ShopDealsView: View {
     let shopDealsModel: ShopDealsModel
     
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-            AsyncImage(url: URL(string: shopDealsModel.backgroundImage)) { image in
+            WebImage(
+                url: URL(string: shopDealsModel.backgroundImage),
+                options: [.retryFailed, .continueInBackground]
+            ) { image in
                 image
                     .resizable()
                     .scaledToFit()
-                    .frame(width: UIScreen.main.bounds.width * 0.8, height: 300)
                     .clipped()
             } placeholder: {
-                Color(.systemGray)
-                    .frame(width: UIScreen.main.bounds.width * 0.8, height: 300)
+                Color(.systemGray5)
+                    .overlay(ProgressView())
             }
+            .frame(width: UIScreen.main.bounds.width * 0.8, height: 300)
+            .cornerRadius(18)
             
             LinearGradient(
                 gradient: Gradient(colors: [.clear, .black.opacity(0.75)]),
