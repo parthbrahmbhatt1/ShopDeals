@@ -8,6 +8,8 @@ A ShowDeals app showcasing promotional deals, search functionality and clean MVV
 - Built-in **search** for fast filtering.
 - Detail page for each promo with HTML description and tappable links.
 - Modern **SwiftUI** with **MVVM** and async/await networking.
+- **Image caching** for smooth scrolling (via [SDWebImageSwiftUI](https://github.com/SDWebImage/SDWebImageSwiftUI))
+
 
 ## Architecture
 
